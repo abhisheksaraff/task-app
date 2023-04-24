@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import uniqid from "uniqid";
 
 class Overview extends Component {
   constructor(props) {
@@ -9,9 +8,10 @@ class Overview extends Component {
   render() {
     return (
       <div>
-        <ul>{this.props.tasks.map((task) => {
-            return (<li key = {uniqid()}> {task}</li>);
-        })}
+        <ul>
+          {this.props.tasks.map((task) => {
+            return <li key={task.id}> {task.value} </li>;
+          })}
         </ul>
       </div>
     );

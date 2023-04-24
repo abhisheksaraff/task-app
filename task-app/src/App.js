@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uniqid from "uniqid";
 import Overview from "./components/Overview";
 
 class App extends Component {
@@ -16,7 +17,10 @@ class App extends Component {
     e.preventDefault(); //Prevents page refresh
 
     this.setState({
-      tasks: [...this.state.tasks, e.target.taskname.value],
+      tasks: [
+        ...this.state.tasks,
+        { value: e.target.taskname.value, id: uniqid() },
+      ],
     });
 
     e.target.reset(); //resets the text field after submit
@@ -27,7 +31,8 @@ class App extends Component {
       <div>
         <form onSubmit={this.addTask}>
           <label>
-            Enter a new task : <input id="task-input" type="text" name="taskname" />
+            Enter a new task :{" "}
+            <input id="task-input" type="text" name="taskname" />
           </label>
           <button type="submit">Add Task</button>
         </form>
