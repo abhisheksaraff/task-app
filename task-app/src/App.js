@@ -31,7 +31,7 @@ class App extends Component {
   editItem(id) {
     let index;
 
-    //finds the item that needs to be deleted
+    //finds the item that needs to be edited
     for (let i = 0; i < this.state.tasks.length; i++) {
       if (this.state.tasks[i].id === id) index = i;
     }
@@ -50,7 +50,7 @@ class App extends Component {
   removeItem(id) {
     let index;
 
-    //finds the item that needs to be deleted
+    //finds the item that needs to be deleted by it's id
     for (let i = 0; i < this.state.tasks.length; i++) {
       if (this.state.tasks[i].id === id) index = i;
     }
