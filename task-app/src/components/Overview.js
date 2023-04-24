@@ -10,7 +10,12 @@ class Overview extends Component {
       <div>
         <ul>
           {this.props.tasks.map((task) => {
-            return <li key={task.id}> {task.value} </li>;
+            return (
+              <li key={task.id}>
+                {task.value}
+                <button onClick={() => this.props.removeTask(task.id)}>Remove</button>
+              </li>
+            );
           })}
         </ul>
       </div>

@@ -11,19 +11,35 @@ class App extends Component {
     };
 
     this.addTask = this.addItem.bind(this);
+    this.removeTask = this.removeItem.bind(this);
   }
 
-  addItem(e) {
-    e.preventDefault(); //Prevents page refresh
+  addItem(event) {
+    event.preventDefault(); //prevents page refresh
 
     this.setState({
       tasks: [
         ...this.state.tasks,
-        { value: e.target.taskname.value, id: uniqid() },
+        { value: event.target.taskname.value, id: uniqid() },
       ],
     });
 
-    e.target.reset(); //resets the text field after submit
+    event.target.reset(); //resets the text field after submit
+  }
+
+  removeItem(id) {
+    let index;
+    //finds the item that needs to be deleted
+    for (let i = 0; i < this.state.tasks.length; i++) {
+      if (this.state.tasks[i].id === id) index = i;
+    }
+
+    this.setState({
+      tasks: [
+        ...this.state.tasks.slice(0, index), //returns a portion of array before intended item
+        ...this.state.tasks.slice(index + 1), //returns a portion of array after intended item
+      ],
+    });
   }
 
   render() {
@@ -37,7 +53,7 @@ class App extends Component {
           <button type="submit">Add Task</button>
         </form>
 
-        <Overview tasks={this.state.tasks} />
+        <Overview tasks={this.state.tasks} removeTask={this.removeTask} />
       </div>
     );
   }
