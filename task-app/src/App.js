@@ -11,6 +11,7 @@ class App extends Component {
     };
 
     this.addTask = this.addItem.bind(this);
+    this.editTask = this.editItem.bind(this);
     this.removeTask = this.removeItem.bind(this);
   }
 
@@ -20,15 +21,35 @@ class App extends Component {
     this.setState({
       tasks: [
         ...this.state.tasks,
-        { value: event.target.taskname.value, id: uniqid() },
+        { value: event.target.taskname.value, id: uniqid() }, //new object that is added to the end of the list
       ],
     });
 
     event.target.reset(); //resets the text field after submit
   }
 
+  editItem(id) {
+    let index;
+
+    //finds the item that needs to be deleted
+    for (let i = 0; i < this.state.tasks.length; i++) {
+      if (this.state.tasks[i].id === id) index = i;
+    }
+
+    let editedTask = prompt("Enter your edited task", this.state.tasks[index].value);
+
+    this.setState({
+      tasks: [
+        ...this.state.tasks.slice(0, index), //returns a portion of array before intended item
+        {value: editedTask, id: id}, //edited task to be added with the same id
+        ...this.state.tasks.slice(index + 1), //returns a portion of array after intended item
+      ],
+    });
+  }
+
   removeItem(id) {
     let index;
+
     //finds the item that needs to be deleted
     for (let i = 0; i < this.state.tasks.length; i++) {
       if (this.state.tasks[i].id === id) index = i;
@@ -47,13 +68,13 @@ class App extends Component {
       <div>
         <form onSubmit={this.addTask}>
           <label>
-            Enter a new task :{" "}
-            <input id="task-input" type="text" name="taskname" />
+            Enter a new task
+            <input type="text" name="taskname" />
           </label>
           <button type="submit">Add Task</button>
         </form>
 
-        <Overview tasks={this.state.tasks} removeTask={this.removeTask} />
+        <Overview tasks={this.state.tasks} editTask={this.editTask} removeTask={this.removeTask} />
       </div>
     );
   }

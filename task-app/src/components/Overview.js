@@ -13,6 +13,7 @@ class Overview extends Component {
             return (
               <li key={task.id}>
                 {task.value}
+                <button onClick={() => this.props.editTask(task.id)}>Edit</button>
                 <button onClick={() => this.props.removeTask(task.id)}>Remove</button>
               </li>
             );
