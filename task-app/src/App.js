@@ -18,10 +18,12 @@ class App extends Component {
   addItem(event) {
     event.preventDefault(); //prevents page refresh
 
+    console.log(event.target);
+
     this.setState({
       tasks: [
         ...this.state.tasks,
-        { value: event.target.taskname.value, id: uniqid() }, //new object that is added to the end of the list
+        { value: event.target.value, id: uniqid() }, //new object that is added to the end of the list
       ],
     });
 
@@ -69,7 +71,7 @@ class App extends Component {
         <form onSubmit={this.addTask}>
           <label>
             Enter a new task
-            <input type="text" name="taskname" />
+            <input type="text" />
           </label>
           <button type="submit">Add Task</button>
         </form>
